@@ -1,19 +1,60 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+// import sagas from './store/sagas';
+// import createSagaMiddleware from 'redux-saga';
+import { persistReducer, persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import { createStore } from 'redux'; // saga kullanılacaksa compose ve applyMiddleware import edilmeli
+import storage from 'redux-persist/lib/storage'; // web için varsayılan localstorage
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { usersReducer } from './usersReducer';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+import { configureStore } from '@reduxjs/toolkit'
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist'
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
+}
+
+// Middleware: persisted reducerımızı oluşturuyoruz.
+const persistedReducer = persistReducer(persistConfig, usersReducer)
+
+
+// const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const sagaMiddleware = createSagaMiddleware();
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
+
+// Middleware: persist store oluşturuyoruz.
+let persistor = persistStore(store)
+
+
+// sagaMiddleware.run(sagas); // 
+
+ReactDOM.render(
+  <Provider store={store}>
+    <PersistGate  loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>,
+  document.getElementById('root')
+);
