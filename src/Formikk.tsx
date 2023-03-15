@@ -11,6 +11,14 @@ import { UsersType } from './UserType';
 const usersFromLocalStorage = JSON.parse(localStorage.getItem("users") || "[]")
 
 const Formikk = () => {
+
+  const [show, setShow] = useState(false);
+  const [goster, setGoster] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
   const [users,setUsers]=useState<UsersType[]>([usersFromLocalStorage]);
   
 
@@ -26,6 +34,21 @@ const Formikk = () => {
   
         <div className="magic-form">
 
+
+        <Button variant="primary" onClick={handleShow}>
+        Kişi eklemek için tıklayın !
+      </Button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Kişi Ekle</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
         <Formik
             initialValues={{
               name: '',
@@ -124,7 +147,22 @@ const Formikk = () => {
                 </button>
               </form>           
             )}       
-          </Formik>      
+          </Formik>  
+        
+       
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Kapat
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
+
+
+           
           <Table>
                   <thead>
                     <tr>
