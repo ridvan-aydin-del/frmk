@@ -30,8 +30,8 @@ export const usersReducer = (state:UserState = initialState, action: Action) => 
     switch(action.type){
         case "ADD_USER": {
             return {...state, UsersType:[...state.Users,action.payload]}
-            
         }
+
         default:
             return state
     }

@@ -4,8 +4,12 @@ import * as Yup from 'yup';
 import './App.css';
 import Formikk from './Formikk';
 
+
+
 const App = () => {
+
   return (
+
     <Formikk />
   );
 };

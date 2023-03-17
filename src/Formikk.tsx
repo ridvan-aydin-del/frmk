@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Table } from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { v4 as uuidv4 } from 'uuid';
 
 import Modal from 'react-bootstrap/Modal';
 
@@ -12,6 +14,8 @@ const usersFromLocalStorage = JSON.parse(localStorage.getItem("users") || "[]")
 
 const Formikk = () => {
 
+
+
   const [show, setShow] = useState(false);
   const [goster, setGoster] = useState(false);
 
@@ -21,7 +25,10 @@ const Formikk = () => {
 
   const [users,setUsers]=useState<UsersType[]>([usersFromLocalStorage]);
   
-
+  useEffect(() =>{
+    const data = localStorage.getItem("users")
+    if ( data !== null)setUsers(JSON.parse(data || "[]"))
+  },[])
 
   useEffect(() =>{
     localStorage.setItem("users",JSON.stringify(users))
@@ -170,6 +177,8 @@ const Formikk = () => {
                       <th>SOYAD</th>
                       <th>NUMARA</th>
                       <th>ÜLKE</th>
+                      <th>DELETE</th>
+                      <th>EDIT</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -180,6 +189,7 @@ const Formikk = () => {
                         <td>{x.number}</td>
                         <td>{x.country}</td>
                         <td><button type='submit' onClick={()=>localStorage.removeItem('users')}>Delete</button></td>
+                        <td><button>Edit-yapılacak</button></td>
                       </tr>
                     )}    
                   </tbody>         
