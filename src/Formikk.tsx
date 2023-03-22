@@ -9,6 +9,7 @@ import Modal from 'react-bootstrap/Modal';
 
 import Button from 'react-bootstrap/Button';
 import { UsersType } from './UserType';
+import EditForm from './Edit';
 
 const usersFromLocalStorage = JSON.parse(localStorage.getItem("users") || "[]")
 
@@ -34,7 +35,14 @@ const Formikk = () => {
     localStorage.setItem("users",JSON.stringify(users))
   })
   
+  const handleDelete = (id: string) => {
+    setUsers((users: UsersType[]) => users.filter((user) => user.id !== id))
+  }
+  const handleEdit = (id: string, updatedUser: UsersType) => {
+    setUsers(users.map((user) => user.id === id ? updatedUser : user))
+  }
 
+  
     return (
       <div className="container">
 
@@ -58,7 +66,7 @@ const Formikk = () => {
         <Modal.Body>
         <Formik
             initialValues={{
-              id: '',
+              id: uuidv4(),
               name: '',
               surname: '',
               number: '',
@@ -152,7 +160,7 @@ const Formikk = () => {
                   <div className="input-feedback">{errors.country}</div>
                 )}
   
-                <button type="submit" disabled={!dirty || isSubmitting} >
+                <button type="submit" onClick={handleClose} disabled={!dirty || isSubmitting} >
                   Kaydol
                 </button>
               </form>           
@@ -191,8 +199,8 @@ const Formikk = () => {
                         <td>{x.surname}</td>
                         <td>{x.number}</td>
                         <td>{x.country}</td>
-                        <td><button type='submit' onClick={()=>localStorage.removeItem('users')}>Delete</button></td>
-                        <td><button>Edit-yapılacak</button></td>
+                        <td><button onClick={() => handleDelete(x.id)}>Delete</button></td>
+                        <td><button>Edit</button></td>
                       </tr>
                     )}    
                   </tbody>         

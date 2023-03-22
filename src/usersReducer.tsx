@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux"
 import { Action } from "./action"
+import { Action2 } from "./action"
 import { UsersType } from "./UserType"
 import { v4 as uuidv4 } from 'uuid';
 
@@ -24,7 +25,6 @@ const initialState: UserState = {
 
   const selectUser = (state: UserState) => state.Users
   
-  {/* const Users = useSelector(selectUser)   */} 
 
 
 export const usersReducer = (state:UserState = initialState, action: Action) => {
@@ -38,3 +38,16 @@ export const usersReducer = (state:UserState = initialState, action: Action) => 
             return state
     }
 }
+export const usersReducer2 = (state:UserState = initialState, action: Action2) => {
+        
+        switch(action.type){
+            case "REMOVE_USER": {
+                return {...state, UsersType:state.Users.filter((user)=>user.id !== action.payload)}
+            }
+            default:
+                return state
+        }
+    }
+
+
+
