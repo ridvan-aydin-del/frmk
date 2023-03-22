@@ -32,7 +32,7 @@ const Formikk = () => {
 
   useEffect(() =>{
     localStorage.setItem("users",JSON.stringify(users))
-  },[users])
+  })
   
 
     return (
@@ -58,6 +58,7 @@ const Formikk = () => {
         <Modal.Body>
         <Formik
             initialValues={{
+              id: '',
               name: '',
               surname: '',
               number: '',
@@ -98,6 +99,8 @@ const Formikk = () => {
                     <h3>Kaydol</h3>
               
                 <label htmlFor="name">İsim</label>
+
+
                 <input
                   id="name"
                   type="text"

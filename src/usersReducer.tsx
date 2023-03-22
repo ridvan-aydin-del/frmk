@@ -1,18 +1,20 @@
 import { useSelector } from "react-redux"
 import { Action } from "./action"
 import { UsersType } from "./UserType"
-
+import { v4 as uuidv4 } from 'uuid';
 
 export interface UserState{
     Users: UsersType[]
 }
 const initialState: UserState = {
     Users:[{
+        id:uuidv4(),
         name:"Rıdvan",
         surname:"Aydın",
         number:"123",
         country:"TR"
     },{
+        id:uuidv4(),
         name:"Ali",
         surname:"Aydın",
         number:"321",
