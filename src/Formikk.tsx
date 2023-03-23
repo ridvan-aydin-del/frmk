@@ -39,7 +39,30 @@ const Formikk = () => {
   const handleDelete = (id: string) => {
     setUsers((users: UsersType[]) => users.filter((user) => user.id !== id))
   }
-  
+
+  const [items, setItems] = useState("");
+  const [lists, setLists] = useState<UsersType[]>([usersFromLocalStorage]);
+  const [todoEditing, setTodoEditing] = useState(null);
+  const [editingText, setEditingText] = useState("");
+
+  const editItem = (id: string) => {
+    let newEditItem = users.find((elem) => {
+      return elem.id === id
+    }) 
+    console.log(newEditItem)
+  }
+
+  const handleModified = (id: string) => {
+    setTodoEditing(null);
+    const editedText = [...lists].map((list) => {
+      if (list.id === id) {
+        list.name = editingText;
+      }
+      return lists;
+    });
+    // setLists(editedText);
+    // setEditingText("");
+  };
   
     return (
       <div className="container">
@@ -157,10 +180,8 @@ const Formikk = () => {
                 {errors.country && touched.country && (
                   <div className="input-feedback">{errors.country}</div>
                 )}
-  
-                <button type="submit" onClick={handleClose} disabled={!dirty || isSubmitting} >
-                  Kaydol
-                </button>
+                
+                <button type="submit" disabled={!dirty || isSubmitting}> Kaydol </button> 
               </form>           
             )}       
           </Formik>  
@@ -174,7 +195,7 @@ const Formikk = () => {
         </Modal.Footer>
       </Modal>
 
-
+                  
 
 
 
@@ -191,6 +212,8 @@ const Formikk = () => {
                     </tr>
                   </thead>
                   <tbody>
+
+
                     {users?.map((x,i)=>
                       <tr>
                         <td>{x.name}</td>
@@ -198,9 +221,13 @@ const Formikk = () => {
                         <td>{x.number}</td>
                         <td>{x.country}</td>
                         <td><button onClick={() => handleDelete(x.id)}>Delete</button></td>
-                        <td><button><Link to={`/Edit/${x.id}`}>Edit</Link></button></td>
+                        <td><button onClick={() => handleModified(x.id)}>Edit</button></td>
+
+                        
                       </tr>
-                    )}    
+                    )}  
+                    
+                     
                   </tbody>         
           </Table>  
         </div>
