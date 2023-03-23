@@ -9,8 +9,7 @@ import Formikk from './Formikk';
 const App = () => {
 
   return (
-
-    <Formikk />
+        <Formikk />
   );
 };
 

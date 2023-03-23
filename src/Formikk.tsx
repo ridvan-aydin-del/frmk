@@ -4,12 +4,13 @@ import * as Yup from 'yup';
 import { Table } from 'react-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { v4 as uuidv4 } from 'uuid';
+import { Link } from "react-router-dom";
 
 import Modal from 'react-bootstrap/Modal';
 
 import Button from 'react-bootstrap/Button';
 import { UsersType } from './UserType';
-import EditForm from './Edit';
+import Edit from './Edit';
 
 const usersFromLocalStorage = JSON.parse(localStorage.getItem("users") || "[]")
 
@@ -38,10 +39,7 @@ const Formikk = () => {
   const handleDelete = (id: string) => {
     setUsers((users: UsersType[]) => users.filter((user) => user.id !== id))
   }
-  const handleEdit = (id: string, updatedUser: UsersType) => {
-    setUsers(users.map((user) => user.id === id ? updatedUser : user))
-  }
-
+  
   
     return (
       <div className="container">
@@ -200,7 +198,7 @@ const Formikk = () => {
                         <td>{x.number}</td>
                         <td>{x.country}</td>
                         <td><button onClick={() => handleDelete(x.id)}>Delete</button></td>
-                        <td><button>Edit</button></td>
+                        <td><button><Link to={`/Edit/${x.id}`}>Edit</Link></button></td>
                       </tr>
                     )}    
                   </tbody>         
