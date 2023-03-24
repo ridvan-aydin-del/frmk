@@ -10,7 +10,6 @@ import Modal from 'react-bootstrap/Modal';
 
 import Button from 'react-bootstrap/Button';
 import { UsersType } from './UserType';
-import Edit from './Edit';
 
 const usersFromLocalStorage = JSON.parse(localStorage.getItem("users") || "[]")
 
@@ -40,10 +39,12 @@ const Formikk = () => {
     setUsers((users: UsersType[]) => users.filter((user) => user.id !== id))
   }
 
-  const [items, setItems] = useState("");
   const [lists, setLists] = useState<UsersType[]>([usersFromLocalStorage]);
   const [todoEditing, setTodoEditing] = useState(null);
   const [editingText, setEditingText] = useState("");
+  const updateItem = (id:string, updatedItem:any) => {
+    setUsers(users.map((user) => (user.id === id ? updatedItem : user)))
+  };
 
   const editItem = (id: string) => {
     let newEditItem = users.find((elem) => {
@@ -65,12 +66,12 @@ const Formikk = () => {
   };
   
     return (
+      
       <div className="container">
-
   
         <div className="magic-form">
 
-
+        
         <Button variant="primary" onClick={handleShow}>
         Kişi eklemek için tıklayın !
       </Button>
@@ -198,7 +199,7 @@ const Formikk = () => {
                   
 
 
-
+                  
            
           <Table>
                   <thead>
