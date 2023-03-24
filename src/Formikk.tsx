@@ -222,7 +222,7 @@ const Formikk = () => {
                         <td>{x.number}</td>
                         <td>{x.country}</td>
                         <td><button onClick={() => handleDelete(x.id)}>Delete</button></td>
-                        <td><button onClick={() => handleModified(x.id)}>Edit</button></td>
+                        <td><button onClick={() => editItem(x.id)}>Edit</button></td>
 
                         
                       </tr>
