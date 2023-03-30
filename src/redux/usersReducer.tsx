@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
-import { Action } from "./action"
-import { Action2 } from "./action"
-import { UsersType } from "./UserType"
+import { Action } from "../action"
+import { Action2 } from "../action"
+import { UsersType } from "../UserType"
 import { v4 as uuidv4 } from 'uuid';
 
 export interface UserState{

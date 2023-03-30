@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { createStore } from 'redux'; // saga kullanılacaksa compose ve applyMiddleware import edilmeli
 import storage from 'redux-persist/lib/storage'; // web için varsayılan localstorage
 import App from './App';
-import { usersReducer } from './usersReducer';
+import { usersReducer } from './redux/usersReducer';
 
 import { configureStore } from '@reduxjs/toolkit'
 import {
