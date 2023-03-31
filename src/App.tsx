@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import type { RootState } from "./redux/store";
 import AddUser from "./components/AddUser/AddUser";
 import EditUser from "./components/EditUser/EditUser";
+import UserList from './components/UserList/UserList';
 
 export interface UserInterface {
   id: string;
@@ -21,7 +22,6 @@ const App = () => {
 
   const users = useSelector((state: RootState) => state.users.users);
   const [editUser, setEditUser] = useState<UserInterface | null>(null);
-  const [userFilterValue, setUserFilterValue] = useState("all");
   const getEditUser = (editUser: UserInterface) => setEditUser(editUser);
 
   return (
@@ -37,12 +37,11 @@ const App = () => {
             <AddUser />
           )}
         </div>
-        <TodoList
-          todos={todos}
-          todoFilterValue={todoFilterValue}
-          getEditTodo={getEditTodo}
-          setEditTodo={setEditTodo}
-          editTodo={editTodo}
+        <UserList
+          users={users}
+          getEditUser={getEditUser}
+          setEditUser={setEditUser}
+          editUser={editUser}
         />
       </div>
     </main>

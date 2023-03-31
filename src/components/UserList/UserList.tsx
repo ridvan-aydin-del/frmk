@@ -21,10 +21,10 @@ const UserList = ({
         .map((user) => (
           <UserItem
             key={user.id}
-            users={users}
-            editTodo={editUser}
-            getEditTodo={getEditUser}
-            setEditTodo={setEditUser}
+            user={user}
+            editUser={editUser}
+            getEditUser={getEditUser}
+            setEditUser={setEditUser}
           />
         ))}
     </ul>
